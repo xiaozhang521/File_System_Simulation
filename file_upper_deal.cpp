@@ -16,9 +16,9 @@ bool File_Upper_Deal::file_close()
 }
 QString File_Upper_Deal::file_read()
 {
-    QString user;
-    user.append("");
-    return user;
+    QString content;
+    content="read";
+    return content;
 }
 bool File_Upper_Deal::file_create()
 {
@@ -32,7 +32,7 @@ bool File_Upper_Deal::file_delete()
 {
     return true;
 }
-bool File_Upper_Deal::file_write()
+bool File_Upper_Deal::file_write(QString text)
 {
     return true;
 }

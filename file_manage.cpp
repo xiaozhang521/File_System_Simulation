@@ -22,7 +22,7 @@ File_Manage::File_Manage(QWidget *parent) :
     connect(ui->pushButton_2,SIGNAL(released()),this,SLOT(path_up()));
 }
 //刷新事件
-void File_Manage::paintEvent(QPaintEvent *event)
+void File_Manage::paintEvent(QPaintEvent *)
 {
 }
 //显示事件
@@ -104,7 +104,6 @@ void File_Manage::contextMenuEvent ( QContextMenuEvent * event )
 //选择改变
 void File_Manage::change_chioce()
 {
-    qDebug()<<"change";
     choose_name=ui->listWidget->currentItem()->text();
     if(ui->listWidget->currentItem()->whatsThis()=="file")
     {
@@ -165,12 +164,16 @@ void File_Manage::test()
 //显示文本编辑
 void File_Manage::show_text_window()
 {
+    File_Upper_Deal *upper_deal=new File_Upper_Deal(choose_name,current_path);
+    text_edit.file_upper_deal=upper_deal;
     this->text_edit.show();
 }
 
 //显示属性
 void File_Manage::show_attributes()
 {
+    File_Upper_Deal *upper_deal=new File_Upper_Deal(choose_name,current_path);
+    this->attribute.file_deal=upper_deal;
     this->attribute.show();
 }
 

@@ -42,7 +42,7 @@ private slots:
 protected:
     void showEvent(QShowEvent *);
     void contextMenuEvent ( QContextMenuEvent * event );
-    void paintEvent(QPaintEvent *event);
+    void paintEvent(QPaintEvent *);
 };
 
 #endif // FILE_MANAGE_H

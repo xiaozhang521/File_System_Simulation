@@ -4,7 +4,7 @@
 #include<QPair>
 class File_Upper_Deal
 {
-private:
+public:
     QString file_name;
     QString file_path;
 public:
@@ -14,9 +14,10 @@ public:
     bool file_create();
     bool file_mkdir();
     bool file_close();
-    bool file_write();
+    bool file_write(QString text);
     bool file_delete();
     bool file_chdir();
+    void file_attribute();
 };
 
 class File_Path_Find

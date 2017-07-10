@@ -21,7 +21,7 @@ private:
     File_Manage file_manage;
 private slots:
     void checkPassword();
-    void reshow();
+    void create_user();
 };
 
 #endif // MAINWINDOW_H
