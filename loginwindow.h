@@ -18,6 +18,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    int now_uid;
     File_Manage file_manage;
 private slots:
     void checkPassword();

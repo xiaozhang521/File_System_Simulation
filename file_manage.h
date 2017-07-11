@@ -9,7 +9,15 @@
 namespace Ui {
 class File_Manage;
 }
+class User
+{
+public:
 
+    QString name;
+    int uid;
+    QString gid;
+    QString gname;
+};
 class File_Manage : public QMainWindow
 {
     Q_OBJECT
@@ -19,6 +27,8 @@ public:
     QString current_path;
     QString choose_name;
     QString choose_type;
+    User user;
+    void setUser(QString n,int u,QString g,QString gn);
     explicit File_Manage(QWidget *parent = 0);
     ~File_Manage();
 

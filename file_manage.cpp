@@ -229,7 +229,14 @@ void File_Manage::add_folder()
         ui->listWidget->addItem(item);
     }
 }
-
+//设置用户
+void File_Manage::setUser(QString n, int u, QString g, QString gn)
+{
+    user.name=n;
+    user.uid=u;
+    user.gid=g;
+    user.gname=gn;
+}
 File_Manage::~File_Manage()
 {
     delete ui;

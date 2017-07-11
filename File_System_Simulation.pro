@@ -24,7 +24,8 @@ HEADERS  += \
     file_upper_deal.h \
     file_manage.h \
     text_edit.h \
-    attribute.h
+    attribute.h \
+    file_pointer.h
 
 FORMS    += \
     loginwindow.ui \
