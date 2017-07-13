@@ -7,7 +7,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    QLibrary mylib("./testfile2.dll");
+    QLibrary mylib("./testfile3.dll");
     if (mylib.load())              //判断是否正确加载
     {
         typedef void (*Fun)(); //定义函数指针，以备调用

@@ -31,17 +31,23 @@ public:
     bool file_close();
     bool file_write(QString text);
     bool file_delete();
-    bool file_chdir();
     void file_attribute();
 };
-
+struct deinfo{
+    char name[14];
+    int type;
+    struct deinfo *next;
+};
 class File_Path_Find
 {
 private:
     QString file_path;
+    QLibrary mylib;
 public:
     File_Path_Find(QString file_path);
     QList<QPair<QString, QString> > file_dir();
+    bool file_chdir();
+    bool file_rmdir();
 };
 
 #endif // FILE_UPPER_DEAL_H

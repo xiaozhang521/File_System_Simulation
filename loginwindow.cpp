@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 void MainWindow::closeEvent(QCloseEvent *)
 {
-    QLibrary mylib("./testfile2.dll");
+    QLibrary mylib("./testfile3.dll");
     mylib.load();
     typedef int (*Fun)(); //定义函数指针，以备调用
     Fun sys_sync=(Fun)mylib.resolve("sys_sync");

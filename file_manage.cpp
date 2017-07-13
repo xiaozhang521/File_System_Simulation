@@ -83,7 +83,7 @@ void File_Manage::contextMenuEvent ( QContextMenuEvent * event )
             QAction *action2=new QAction("删除文件夹", this);
             QString file_name=choose_item->text();
             connect(action1,SIGNAL(triggered()),this,SLOT(change_path()));
-            connect(action2,SIGNAL(triggered()),this,SLOT(test()));
+            connect(action2,SIGNAL(triggered()),this,SLOT(delete_folder()));
             popMenu->addAction(action1);
             popMenu->addAction(action2);
             choose_type="folder";
@@ -118,6 +118,8 @@ void File_Manage::change_chioce()
 void File_Manage::change_path()
 {
     this->current_path=current_path+choose_name+"/";
+    File_Path_Find *path_change=new File_Path_Find(choose_name);
+    path_change->file_chdir();
     ui->listWidget->clear();
     this->hide();
     this->show();
@@ -138,6 +140,9 @@ void File_Manage::path_up()
                 current_path=current_path.mid(0,i+1);
             }
         }
+        qDebug()<<
+        File_Path_Find *path_change=new File_Path_Find(current_path);
+        path_change->file_chdir();
         ui->listWidget->clear();
         this->hide();
         this->show();
@@ -153,6 +158,8 @@ void File_Manage::logout()
     current_path="/";
     choose_name="";
     choose_type="";
+    File_Path_Find *path_change=new File_Path_Find("/");
+    path_change->file_chdir();
     this->parentWidget()->resize(400,300);
 
 }
@@ -188,13 +195,24 @@ void File_Manage::delete_file()
         if(list.at(i)->whatsThis()==choose_type)
         {
             delete list.at(i);
+            File_Upper_Deal *upper_deal=new File_Upper_Deal(choose_name,current_path);
+            upper_deal->file_delete();
         }
     }
 }
 //删除文件夹
 void File_Manage::delete_folder()
 {
-
+    QList<QListWidgetItem *>list=ui->listWidget->findItems(choose_name,Qt::MatchExactly);
+    for(int i=0;i<list.size();++i)
+    {
+        if(list.at(i)->whatsThis()==choose_type)
+        {
+            delete list.at(i);
+            File_Path_Find *rmfolder=new File_Path_Find(choose_name);
+            rmfolder->file_rmdir();
+        }
+    }
 }
 
 //添加文件
@@ -231,6 +249,8 @@ void File_Manage::add_folder()
         item->setWhatsThis("folder");
         item->setText(text);
         ui->listWidget->addItem(item);
+        File_Upper_Deal *file_deal=new File_Upper_Deal(text,current_path);
+        file_deal->file_mkdir();
     }
 }
 //设置用户
