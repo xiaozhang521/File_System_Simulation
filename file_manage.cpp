@@ -154,6 +154,7 @@ void File_Manage::logout()
     choose_name="";
     choose_type="";
     this->parentWidget()->resize(400,300);
+
 }
 //测试槽
 void File_Manage::test()
@@ -167,6 +168,7 @@ void File_Manage::show_text_window()
     File_Upper_Deal *upper_deal=new File_Upper_Deal(choose_name,current_path);
     text_edit.file_upper_deal=upper_deal;
     this->text_edit.show();
+
 }
 
 //显示属性
@@ -210,6 +212,8 @@ void File_Manage::add_file()
         item->setWhatsThis("file");
         item->setText(text);
         ui->listWidget->addItem(item);
+        File_Upper_Deal *file_deal=new File_Upper_Deal(text,current_path);
+        file_deal->file_create();
     }
 }
 //添加文件夹

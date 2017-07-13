@@ -23,6 +23,8 @@ private:
 private slots:
     void checkPassword();
     void create_user();
+protected:
+    void closeEvent(QCloseEvent *);
 };
 
 #endif // MAINWINDOW_H

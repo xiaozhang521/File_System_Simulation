@@ -4,6 +4,7 @@
 #include<file_upper_deal.h>
 #include<qmessagebox.h>
 #include<file_pointer.h>
+#include<qlibrary.h>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -16,12 +17,29 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->pushButton,SIGNAL(released()),this,SLOT(checkPassword()));
     connect(ui->pushButton_2,SIGNAL(released()),this,SLOT(create_user()));
 }
+void MainWindow::closeEvent(QCloseEvent *)
+{
+    QLibrary mylib("./testfile2.dll");
+    mylib.load();
+    typedef int (*Fun)(); //定义函数指针，以备调用
+    Fun sys_sync=(Fun)mylib.resolve("sys_sync");
+    if(sys_sync)
+    {
+        int tmp=sys_sync();
+        qDebug()<<tmp;
+    }
+    else qDebug()<<"fail";
+    qDebug()<<"asd";
+}
 void MainWindow::checkPassword()
 {
     QFile file("./user.in");
     QString name=ui->lineEdit->text();
     QString psw=ui->lineEdit_2->text();
-    if(file.open(QFile::ReadOnly)|QIODevice::ReadOnly)
+    this->file_manage.user_name=name;
+    this->file_manage.show();
+    this->resize(684,444);
+    /*if(file.open(QFile::ReadOnly)|QIODevice::ReadOnly)
     {
         QTextStream in(&file);
         bool flag=true;
@@ -54,7 +72,7 @@ void MainWindow::checkPassword()
         {
             QMessageBox::information(this, tr("提示"), "用户名错误或密码错误");
         }
-    }
+    }*/
     file.close();
 }
 void MainWindow::create_user()
