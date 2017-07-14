@@ -17,9 +17,12 @@ File_Manage::File_Manage(QWidget *parent) :
     current_path="/";
     choose_name="";
     choose_type="";
+    file_count=0;
+    folder_count=0;
     connect(ui->listWidget,SIGNAL(itemClicked(QListWidgetItem *)),this,SLOT(change_chioce()));
     connect(ui->pushButton,SIGNAL(released()),this,SLOT(logout()));
     connect(ui->pushButton_2,SIGNAL(released()),this,SLOT(path_up()));
+    connect(ui->listWidget, SIGNAL(itemDoubleClicked(QListWidgetItem*)),this, SLOT(open_op(QListWidgetItem*)));
 }
 //刷新事件
 void File_Manage::paintEvent(QPaintEvent *)
@@ -57,7 +60,20 @@ void File_Manage::showEvent(QShowEvent *)
         ui->listWidget->addItem(item);
     }
 }
-
+void File_Manage::open_op(QListWidgetItem *item)
+{
+    choose_name=item->text();
+    if(item->whatsThis()=="file")
+    {
+        choose_type="file";
+        show_text_window();
+    }
+    else
+    {
+        choose_type="folder";
+        change_path();
+    }
+}
 //右击菜单
 void File_Manage::contextMenuEvent ( QContextMenuEvent * event )
 {
@@ -138,10 +154,11 @@ void File_Manage::path_up()
             if(current_path.at(i)=='/')
             {
                 current_path=current_path.mid(0,i+1);
+                break;
             }
         }
-        qDebug()<<
-        File_Path_Find *path_change=new File_Path_Find(current_path);
+        qDebug()<<"current_path:"<<current_path;
+        File_Path_Find *path_change=new File_Path_Find("..");
         path_change->file_chdir();
         ui->listWidget->clear();
         this->hide();
@@ -219,10 +236,16 @@ void File_Manage::delete_folder()
 void File_Manage::add_file()
 {
     bool isOK;
+    QString default_name;
+    if(file_count==0)
+        default_name="newfile";
+    else
+        default_name="newfile"+QString::number(file_count);
     QString text=QInputDialog::getText(NULL, "输入文件名", "请输入文件名",
-                          QLineEdit::Normal, "newfile", &isOK);
+                          QLineEdit::Normal, default_name, &isOK);
     if(isOK)
     {
+        file_count++;
         QIcon icon;
         QListWidgetItem *item=new QListWidgetItem();
         icon.addFile("./file.png");
@@ -238,10 +261,16 @@ void File_Manage::add_file()
 void File_Manage::add_folder()
 {
     bool isOK;
+    QString default_name;
+    if(folder_count==0)
+        default_name="newfile";
+    else
+        default_name="newfile"+QString::number(folder_count);
     QString text=QInputDialog::getText(NULL, "输入文件夹名", "请输入文件夹名",
-                          QLineEdit::Normal, "newfolder", &isOK);
+                          QLineEdit::Normal, default_name, &isOK);
     if(isOK)
     {
+        folder_count++;
         QIcon icon;
         QListWidgetItem *item=new QListWidgetItem();
         icon.addFile("./folder.png");

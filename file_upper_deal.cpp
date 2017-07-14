@@ -161,7 +161,7 @@ QList<QPair<QString,QString> > File_Path_Find::file_dir()
                     tmp.second="file";
                 }
                 else tmp.second="folder";
-                //if(tmp.first!=".."&&tmp.first!=".")
+                if(tmp.first!=".."&&tmp.first!=".")
                 s.append(tmp);
                 qDebug()<<tmp.first<<"append";
                 nowp=nowp->next;

@@ -6,6 +6,7 @@
 #include<QMouseEvent>
 #include<text_edit.h>
 #include<attribute.h>
+#include<QListWidgetItem>
 namespace Ui {
 class File_Manage;
 }
@@ -33,6 +34,8 @@ public:
     ~File_Manage();
 
 private:
+    int file_count;
+    int folder_count;
     Ui::File_Manage *ui;
     Text_Edit text_edit;
     Attribute attribute;
@@ -49,6 +52,7 @@ private slots:
     void add_file();
     void add_folder();
     void path_up();
+    void open_op(QListWidgetItem* item);
 protected:
     void showEvent(QShowEvent *);
     void contextMenuEvent ( QContextMenuEvent * event );
